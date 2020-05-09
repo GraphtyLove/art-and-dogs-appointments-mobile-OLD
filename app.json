@@ -1,0 +1,17 @@
+{
+  "name": "art-and-dogs-admin-mobile",
+  "displayName": "art-and-dogs-admin-mobile",
+  "expo": {
+    "name": "art-and-dogs-admin-mobile",
+    "slug": "art-and-dogs-admin-mobile",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
