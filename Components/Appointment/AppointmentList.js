@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import AppointmentItem from './AppointmentItem.js'
 
 // Constants:
-const API_PATH = "http://51.210.8.134/"
+const API_URL = "http://51.210.8.134/"
 
 // Style:
 const style = StyleSheet.create({
@@ -34,8 +34,8 @@ const AppointmentList = props => {
     const appointmentStatusWaiting = appointmentList.filter(appointment => appointment.status === 'waiting')
 
     // API fetch:
-    const sendUserToApi = () => {
-        fetch(API_PATH + "appointment-admin", {
+    const fetchAppointments = () => {
+        fetch(API_URL + "appointment-admin", {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -47,14 +47,14 @@ const AppointmentList = props => {
         })
             .then(result => result.json())
             .then(resultJson => {
-                console.log('result', resultJson)
+                console.log('result', resultJson.length)
                 setAppointmentList(resultJson)
             })
             .catch(() => setApiError("Erreur interne du serveur. Veuillez réessayer plus tard."))
     }
 
     useEffect(() => {
-        sendUserToApi()
+        fetchAppointments()
     }, [])
 
     return (
@@ -62,16 +62,18 @@ const AppointmentList = props => {
             {appointmentStatusWaiting.length > 0
                 && props.switcherIndex === 1
                 && appointmentStatusWaiting.map(appointment => <AppointmentItem
-                    key={appointment.id}
+                    key={appointment._id.$oid}
                     appointment={appointment}
+                    fetchAppointments={fetchAppointments}
                 />)
             }
 
             {appointmentStatusTodo.length > 0
                 && props.switcherIndex === 0
                 && appointmentStatusTodo.map(appointment => <AppointmentItem
-                    key={appointment.id}
+                    key={appointment._id.$oid}
                     appointment={appointment}
+                    fetchAppointments={fetchAppointments}
                 />)
             }
 

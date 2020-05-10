@@ -6,9 +6,6 @@ import PageTitle from '../PageTitle/PageTitle.js'
 import Switcher from '../Switcher/Switcher.js'
 import AppointmentList from '../Appointment/AppointmentList.js'
 
-
-
-
 // Style: 
 const style = StyleSheet.create({
     container: {
@@ -19,7 +16,8 @@ const style = StyleSheet.create({
     },
 })
 
-const componentName = () => {
+
+const Dashboard = () => {
     // States:
     // Switch between todo (1) and waiting (2) appointments
     const [switcherIndex, setSwitcherIndex] = useState(0)
@@ -40,4 +38,4 @@ const componentName = () => {
     )
 }
 
-export default componentName
+export default Dashboard

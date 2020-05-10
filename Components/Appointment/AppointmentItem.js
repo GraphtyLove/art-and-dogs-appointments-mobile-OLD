@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { Icon } from 'react-native-elements'
+import { Icon, Button } from 'react-native-elements'
 
 // Style:
 const style = StyleSheet.create({
@@ -38,9 +38,9 @@ const style = StyleSheet.create({
     },
     footerContainer: {
         flex: 2,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
         alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'red',
     },
     infoRowTitle: {
         flexDirection: 'row',
@@ -69,8 +69,39 @@ const style = StyleSheet.create({
 
 })
 
+const API_URL = "http://51.210.8.134/"
 
-const AppointmentItem = (props) => {
+const AppointmentItem = props => {
+
+    const STATUS = props.appointment.status === 'todo' ? 'EN ATTENTE' : 'A CONTACTER'
+
+    const appointmentDelete = appointmentId => {
+        console.log('id: ', appointmentId)
+        fetch(API_URL + "appointment-delete", {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify({ id: appointmentId }),
+        })
+            .then(result => result.json())
+            .then(resultJson => { resultJson.success && props.fetchAppointments() })
+    }
+    const appointmentStatusInvert = appointmentData => {
+        appointmentData.id = appointmentData._id.$oid
+        console.log('invert: ', appointmentData)
+        fetch(API_URL + "appointment-status-invert", {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify(appointmentData),
+        })
+            .then(result => result.json())
+            .then(resultJson => { resultJson.success && props.fetchAppointments() })
+            .catch(err => console.log(err))
+    }
+
     return (
         <View style={style.container}>
 
@@ -131,7 +162,9 @@ const AppointmentItem = (props) => {
             </View>
 
             <View style={style.footerContainer}>
-                <Text>Button list. Not implemented yet.</Text>
+                <Button onPress={() => appointmentDelete(props.appointment._id.$oid)} buttonStyle={{ width: 85, backgroundColor: '#cb444a' }} titleStyle={{ fontSize: 10 }} title='Supprimer' />
+                <Button onPress={() => console.log('sms')} buttonStyle={{ width: 85 }} titleStyle={{ fontSize: 10 }} title='SMS' />
+                <Button onPress={() => appointmentStatusInvert(props.appointment)} buttonStyle={{ width: 85, backgroundColor: '#53a451' }} titleStyle={{ fontSize: 10 }} title={STATUS} />
             </View>
 
         </View>
