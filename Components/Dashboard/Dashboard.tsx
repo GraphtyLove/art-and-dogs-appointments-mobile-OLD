@@ -2,10 +2,19 @@ import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 // Components:
+import PageTitle from '../PageTitle/PageTitle'
 import Switcher from '../Switcher/Switcher'
 
 // Constants:
 const API_PATH = "http://51.210.8.134/"
+
+
+// Style: 
+const style = StyleSheet.create({
+    container: {
+        justifyContent: 'flex-start',
+    },
+})
 
 const componentName = () => {
     // States:
@@ -36,10 +45,8 @@ const componentName = () => {
 
 
     return (
-        <View>
-            <View>
-                <Text>Dashboard Art and Dogs</Text>
-            </View>
+        <View style={style.container}>
+            <PageTitle title='Mes rendez-vous' />
             <View>
                 <View>
                     <Switcher switcherIndex={switcherIndex} setSwitcherIndex={setSwitcherIndex} />

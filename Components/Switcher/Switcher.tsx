@@ -1,23 +1,21 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { Button, ButtonGroup } from 'react-native-elements'
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import { ButtonGroup } from 'react-native-elements'
 
+// Style:
 const style = StyleSheet.create({
-    activeButton: {
-        backgroundColor: "white",
-        fontWeight: "bold",
+    container: {
+        marginBottom: 50,
     },
-    inactiveButton: {
-        backgroundColor: "red",
-    }
 })
+
 
 // TODO: Check the prop's type
 const Switcher = (props: any) => {
     const buttons = ['A contacter', 'En attente']
 
     return (
-        <View>
+        <View style={style.container}>
             <ButtonGroup
                 onPress={props.setSwitcherIndex}
                 selectedIndex={props.switcherIndex}
