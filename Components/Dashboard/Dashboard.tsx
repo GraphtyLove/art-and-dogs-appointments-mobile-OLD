@@ -13,25 +13,27 @@ import AppointmentList from '../Appointment/AppointmentList'
 const style = StyleSheet.create({
     container: {
         justifyContent: 'flex-start',
+        alignItems: 'center',
+        width: '95%',
     },
 })
 
 const componentName = () => {
     // States:
     // Switch between todo (1) and waiting (2) appointments
-    const [switcherIndex, setSwitcherIndex] = useState(1)
+    const [switcherIndex, setSwitcherIndex] = useState(0)
 
     return (
         <View style={style.container}>
+
             <PageTitle title='Mes rendez-vous' />
-            <View>
-                <View>
-                    <Switcher switcherIndex={switcherIndex} setSwitcherIndex={setSwitcherIndex} />
-                </View>
-            </View>
-            <View>
-                <AppointmentList switcherIndex={switcherIndex} />
-            </View>
+
+            <Switcher
+                switcherIndex={switcherIndex}
+                setSwitcherIndex={setSwitcherIndex}
+            />
+
+            <AppointmentList switcherIndex={switcherIndex} />
 
         </View>
     )

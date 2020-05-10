@@ -6,6 +6,7 @@ const style = StyleSheet.create({
     container: {
         marginTop: 50,
         marginBottom: 50,
+        alignItems: 'center',
     },
     titleText: {
         color: 'back',

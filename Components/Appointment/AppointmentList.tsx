@@ -12,6 +12,7 @@ const style = StyleSheet.create({
     container: {
         justifyContent: 'flex-start',
         alignItems: 'center',
+        width: '100%',
     },
     errorMessage: {
         color: 'red',
@@ -60,25 +61,25 @@ const AppointmentList = (props: any) => {
         <View style={style.container}>
 
 
-            {appointmentStatusTodo.length > 0
-                && props.switcherIndex === 1
-                && appointmentStatusTodo.map(appointment => <AppointmentItem
-                    appointment={appointment}
-                />)
-            }
-
             {appointmentStatusWaiting.length > 0
-                && props.switcherIndex === 0
+                && props.switcherIndex === 1
                 && appointmentStatusWaiting.map(appointment => <AppointmentItem
                     appointment={appointment}
                 />)
             }
 
+            {appointmentStatusTodo.length > 0
+                && props.switcherIndex === 0
+                && appointmentStatusTodo.map(appointment => <AppointmentItem
+                    appointment={appointment}
+                />)
+            }
 
-            {appointmentStatusWaiting.length === 0 && props.switcherIndex === 0
+
+            {appointmentStatusTodo.length === 0 && props.switcherIndex === 0
                 && <Text style={style.EmptyMessage}>Pas de rendez-vous en attente! 👏🏽</Text>}
 
-            {appointmentStatusTodo.length === 0 && props.switcherIndex === 1
+            {appointmentStatusWaiting.length === 0 && props.switcherIndex === 1
                 && <Text style={style.EmptyMessage}>Pas de demande de rendez-vous! 👏🏽</Text>}
 
             {apiError.length > 0
