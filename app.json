@@ -1,9 +1,9 @@
 {
-  "name": "art-and-dogs-admin-mobile",
-  "displayName": "art-and-dogs-admin-mobile",
+  "name": "art-and-dogs-admin",
+  "displayName": "art-and-dogs-admin",
   "expo": {
-    "name": "art-and-dogs-admin-mobile",
-    "slug": "art-and-dogs-admin-mobile",
+    "name": "art-and-dogs-admin",
+    "slug": "art-and-dogs-admin",
     "version": "1.0.0",
     "platforms": [
       "ios",

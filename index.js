@@ -1,4 +1,5 @@
 import { registerRootComponent } from 'expo';
+import 'typeface-roboto';
 
 import App from './App';
 
