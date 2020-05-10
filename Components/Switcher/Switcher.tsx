@@ -9,8 +9,6 @@ const style = StyleSheet.create({
     },
 })
 
-
-// TODO: Check the prop's type
 const Switcher = (props: any) => {
     const buttons = ['A contacter', 'En attente']
 
