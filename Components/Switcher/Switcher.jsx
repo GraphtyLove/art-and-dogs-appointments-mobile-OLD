@@ -21,9 +21,9 @@ const Switcher = (props: any) => {
                 buttons={buttons}
                 containerStyle={{
                     backgroundColor: '#f5bf65',
-                    borderRadius: '17px',
+                    borderRadius: 17,
                     borderColor: '#fff',
-                    borderWidth: '5px',
+                    borderWidth: 5,
                 }}
                 textStyle={{ color: 'black' }}
                 selectedButtonStyle={{ backgroundColor: 'white' }}

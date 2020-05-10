@@ -64,6 +64,7 @@ const AppointmentList = (props: any) => {
             {appointmentStatusWaiting.length > 0
                 && props.switcherIndex === 1
                 && appointmentStatusWaiting.map(appointment => <AppointmentItem
+                    key={appointment.id}
                     appointment={appointment}
                 />)
             }
@@ -71,6 +72,7 @@ const AppointmentList = (props: any) => {
             {appointmentStatusTodo.length > 0
                 && props.switcherIndex === 0
                 && appointmentStatusTodo.map(appointment => <AppointmentItem
+                    key={appointment.id}
                     appointment={appointment}
                 />)
             }

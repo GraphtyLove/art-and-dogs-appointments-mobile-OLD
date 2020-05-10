@@ -9,9 +9,9 @@ const style = StyleSheet.create({
         alignItems: 'center',
     },
     titleText: {
-        color: 'back',
-        fontSize: 86,
-        fontFamily: 'Baskervville',
+        color: 'black',
+        fontSize: 26,
+        // fontFamily: 'Baskervville',
         letterSpacing: 7,
     },
     divider: {
