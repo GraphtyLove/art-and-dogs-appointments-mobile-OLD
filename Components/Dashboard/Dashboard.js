@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 // Components:
-import PageTitle from '../PageTitle/PageTitle'
-import Switcher from '../Switcher/Switcher'
-import AppointmentList from '../Appointment/AppointmentList'
+import PageTitle from '../PageTitle/PageTitle.js'
+import Switcher from '../Switcher/Switcher.js'
+import AppointmentList from '../Appointment/AppointmentList.js'
 
 
 
@@ -15,6 +15,7 @@ const style = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         width: '95%',
+        minHeight: '100%',
     },
 })
 

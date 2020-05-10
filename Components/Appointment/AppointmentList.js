@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, ScrollView } from 'react-native'
 
 // Components:
-import AppointmentItem from './AppointmentItem'
+import AppointmentItem from './AppointmentItem.js'
 
 // Constants:
 const API_PATH = "http://51.210.8.134/"
@@ -20,18 +20,18 @@ const style = StyleSheet.create({
     },
     EmptyMessage: {
         fontWeight: 'bold',
-        fontSize: 22,
+        fontSize: 20,
     }
 })
 
-const AppointmentList = (props: any) => {
+const AppointmentList = props => {
     // States:
     const [appointmentList, setAppointmentList] = useState([])
     const [apiError, setApiError] = useState('')
 
     // Appointment lists
-    const appointmentStatusTodo = appointmentList.filter((appointment: any) => appointment.status === 'todo')
-    const appointmentStatusWaiting = appointmentList.filter((appointment: any) => appointment.status === 'waiting')
+    const appointmentStatusTodo = appointmentList.filter(appointment => appointment.status === 'todo')
+    const appointmentStatusWaiting = appointmentList.filter(appointment => appointment.status === 'waiting')
 
     // API fetch:
     const sendUserToApi = () => {
@@ -59,8 +59,6 @@ const AppointmentList = (props: any) => {
 
     return (
         <View style={style.container}>
-
-
             {appointmentStatusWaiting.length > 0
                 && props.switcherIndex === 1
                 && appointmentStatusWaiting.map(appointment => <AppointmentItem
@@ -86,7 +84,7 @@ const AppointmentList = (props: any) => {
 
             {apiError.length > 0
                 && <Text style={style.errorMessage}>L'application ne peut charger la liste de rendez-vous.
-                Êtes-vous connecté à internet?</Text>}
+                        Êtes-vous connecté à internet?</Text>}
         </View>
     )
 }

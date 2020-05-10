@@ -10,7 +10,7 @@ const style = StyleSheet.create({
     },
 })
 
-const Switcher = (props: any) => {
+const Switcher = props => {
     const buttons = ['A contacter', 'En attente']
 
     return (

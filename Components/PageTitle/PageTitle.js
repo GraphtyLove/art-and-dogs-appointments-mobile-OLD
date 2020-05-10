@@ -13,6 +13,7 @@ const style = StyleSheet.create({
         fontSize: 26,
         // fontFamily: 'Baskervville',
         letterSpacing: 7,
+        marginBottom: 15,
     },
     divider: {
         backgroundColor: 'black',
@@ -23,7 +24,7 @@ const style = StyleSheet.create({
 })
 
 
-const PageTitle = (props: any) => {
+const PageTitle = props => {
     return (
         <View style={style.container}>
             <Text style={style.titleText}>{props.title}</Text>

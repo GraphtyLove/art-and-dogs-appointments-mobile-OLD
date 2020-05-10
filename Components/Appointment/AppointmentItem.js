@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { Icon } from 'react-native-elements'
 
 // Style:
 const style = StyleSheet.create({
@@ -7,12 +8,12 @@ const style = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 3,
         width: '90%',
-        height: 500,
+        height: 380,
         justifyContent: 'space-around',
         marginBottom: 30,
     },
     headerContainer: {
-        flex: 2,
+        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#f7f7f7',
@@ -24,7 +25,7 @@ const style = StyleSheet.create({
         fontWeight: 'bold',
     },
     mainContainer: {
-        flex: 10,
+        flex: 5,
         alignContent: 'center',
         paddingHorizontal: 12,
         paddingVertical: 10,
@@ -36,16 +37,19 @@ const style = StyleSheet.create({
         marginBottom: 20,
     },
     footerContainer: {
-        flex: 3,
+        flex: 2,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'red',
     },
     infoRowTitle: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
         width: '50%',
     },
     infoRowTitleText: {
         fontSize: 10,
+        marginLeft: 5,
     },
     infoRowContentText: {
         fontSize: 10,
@@ -56,24 +60,33 @@ const style = StyleSheet.create({
     },
     infoRowContent: {
         width: '50%',
+        justifyContent: 'center',
+    },
+    titleWarp: {
+        flexDirection: 'row',
+        alignItems: 'center',
     }
 
 })
 
 
-const AppointmentItem = (props: any) => {
+const AppointmentItem = (props) => {
     return (
         <View style={style.container}>
 
             <View style={style.headerContainer}>
-                <Text style={style.infoRowContentText}> {props.appointment.date} </Text>
-                <Text style={style.infoRowContentText}> Status: O </Text>
+                <Text style={style.infoRowContentTextBold}> {props.appointment.date} </Text>
+                <Text style={style.infoRowContentTextBold}> Status: O </Text>
             </View>
 
             <View style={style.mainContainer}>
                 <View style={style.infoRow}>
                     <View style={style.infoRowTitle}>
-                        <Text style={style.infoRowTitleText}>Client</Text>
+                        <View style={style.titleWarp}>
+                            <Icon name='person' />
+                            <Text style={style.infoRowTitleText}>Client</Text>
+                        </View>
+
                     </View>
                     <View style={style.infoRowContent}>
                         <Text style={style.infoRowContentTextBold}>{props.appointment.firstName} {props.appointment.lastName}</Text>
@@ -82,7 +95,10 @@ const AppointmentItem = (props: any) => {
                 </View>
                 <View style={style.infoRow}>
                     <View style={style.infoRowTitle}>
-                        <Text style={style.infoRowTitleText}>Chien</Text>
+                        <View style={style.titleWarp}>
+                            <Icon name='pets' />
+                            <Text style={style.infoRowTitleText}>Chien</Text>
+                        </View>
                     </View>
                     <View style={style.infoRowContent}>
                         <Text style={style.infoRowContentTextBold}>{props.appointment.dogName}</Text>
@@ -91,7 +107,10 @@ const AppointmentItem = (props: any) => {
                 </View>
                 <View style={style.infoRow}>
                     <View style={style.infoRowTitle}>
-                        <Text style={style.infoRowTitleText}>Remarque du client</Text>
+                        <View style={style.titleWarp}>
+                            <Icon name='comment' />
+                            <Text style={style.infoRowTitleText}>Remarque du client</Text>
+                        </View>
                     </View>
                     <View style={style.infoRowContent}>
                         <Text style={style.infoRowContentText}>{props.appointment.remarque}</Text>
@@ -99,15 +118,10 @@ const AppointmentItem = (props: any) => {
                 </View>
                 <View style={style.infoRow}>
                     <View style={style.infoRowTitle}>
-                        <Text style={style.infoRowTitleText}>Note personnelle</Text>
-                    </View>
-                    <View style={style.infoRowContent}>
-                        <Text style={style.infoRowContentText}>{props.appointment.note} OK</Text>
-                    </View>
-                </View >
-                <View style={style.infoRow}>
-                    <View style={style.infoRowTitle}>
-                        <Text style={style.infoRowTitleText}>Rendez-vous</Text>
+                        <View style={style.titleWarp}>
+                            <Icon name='today' />
+                            <Text style={style.infoRowTitleText}>Rendez-vous</Text>
+                        </View>
                     </View>
                     <View style={style.infoRowContent}>
                         {/* TODO: add a calendar input here */}
