@@ -79,10 +79,10 @@ const AppointmentList = props => {
 
 
             {appointmentStatusTodo.length === 0 && props.switcherIndex === 0
-                && <Text style={style.EmptyMessage}>Pas de rendez-vous en attente! 👏🏽</Text>}
+                && <Text style={style.EmptyMessage}>Pas de demande de rendez-vous! 👏🏽</Text>}
 
             {appointmentStatusWaiting.length === 0 && props.switcherIndex === 1
-                && <Text style={style.EmptyMessage}>Pas de demande de rendez-vous! 👏🏽</Text>}
+                && <Text style={style.EmptyMessage}>Pas de rendez-vous en attente! 👏🏽</Text>}
 
             {apiError.length > 0
                 && <Text style={style.errorMessage}>L'application ne peut charger la liste de rendez-vous.

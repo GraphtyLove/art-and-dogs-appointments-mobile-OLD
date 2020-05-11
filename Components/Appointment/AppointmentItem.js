@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Icon, Button } from 'react-native-elements'
+import DateTimePicker from '@react-native-community/datetimepicker';
 import SendSMS from 'react-native-sms'
 
 // Style:
@@ -67,6 +68,11 @@ const style = StyleSheet.create({
         width: '50%',
         justifyContent: 'center',
     },
+    infoRowContentDate: {
+        width: '50%',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+    },
     titleWarp: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -76,21 +82,37 @@ const style = StyleSheet.create({
 
 const API_URL = "http://51.210.8.134/"
 
+let SMS_STRING = ''
+
 const AppointmentItem = props => {
     // Constants
     const STATUS = props.appointment.status === 'todo' ? 'EN ATTENTE' : 'A CONTACTER'
+    // States:
+    const [dateTime, setDateTime] = useState(new Date(1598051730000))
+    const [dateTimePickerMode, setDateTimePickerMode] = useState('date')
+    const [showDateTimePicker, setShowDateTimePicker] = useState(false)
 
 
-    const appointmentDay = '12'
-    const appointmentMonth = '02'
-    const appointmentHour = '12'
-    const appointmentMinute = '16'
+    const dataTimePickerShow = mode => {
+        setDateTimePickerMode(mode)
+        setShowDateTimePicker(true)
+    }
 
-    let SMS_STRING = `Salon Art and Dogs bonjour, je vous contacte suite à votre demande 
-                        de rendez - vous effectuée le ${ props.appointment.date}. Je peux 
-                        vous proposer le: ${appointmentDay} /${appointmentMonth} à 
-                        ${appointmentHour}h${appointmentMinute}. Merci de me confirmer ou 
-                        non votre présence. Une bonne journée.`
+    const dateTimeOnChange = (event, selectedDate) => {
+        // Get the date
+        const currentDate = selectedDate || dateTime
+        // Close the calendar/time
+        setShowDateTimePicker(false)
+        // Set the date/time in the state
+        setDateTime(currentDate)
+        // Format SMS_STRING with the date and time
+        SMS_STRING = `Salon Art and Dogs bonjour, je vous contacte suite à votre demande 
+        de rendez - vous effectuée le ${ props.appointment.date}. Je peux 
+        vous proposer le: ${selectedDate.getDate()}/${selectedDate.getMonth()} à 
+        ${selectedDate.getHours()}h${selectedDate.getMinutes()}. Merci de me confirmer ou 
+        non votre présence. Une bonne journée.`
+    }
+
 
     const appointmentDelete = appointmentId => {
         console.log('id: ', appointmentId)
@@ -119,22 +141,23 @@ const AppointmentItem = props => {
             .catch(err => console.log(err))
     }
     const sendSms = () => {
-        SendSMS.send({
-            //Message body
-            body: 'Message sent',
-            //Recipients Number
-            recipients: [props.appointment.phone],
-            //An array of types that would trigger a "completed" response when using android
-            successTypes: ['sent', 'queued']
-        }, (completed, cancelled, error) => {
-            if (completed) {
-                console.log('SMS Sent Completed')
-            } else if (cancelled) {
-                console.log('SMS Sent Cancelled')
-            } else if (error) {
-                console.log('Some error occured')
-            }
-        });
+        // SendSMS.send({
+        //     //Message body
+        //     body: 'Message sent',
+        //     //Recipients Number
+        //     recipients: [props.appointment.phone],
+        //     //An array of types that would trigger a "completed" response when using android
+        //     successTypes: ['sent', 'queued']
+        // }, (completed, cancelled, error) => {
+        //     if (completed) {
+        //         console.log('SMS Sent Completed')
+        //     } else if (cancelled) {
+        //         console.log('SMS Sent Cancelled')
+        //     } else if (error) {
+        //         console.log('Some error occured')
+        //     }
+        // })
+        console.log(SMS_STRING)
     }
 
     return (
@@ -142,7 +165,7 @@ const AppointmentItem = props => {
 
             <View style={style.headerContainer}>
                 <Text style={style.infoRowContentTextBold}> {props.appointment.date} </Text>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}><Text style={style.infoRowContentTextBold}> Status: </Text><Icon name={props.appointment.status === 'todo' ? 'snooze' : 'alarm-on'} /></View>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}><Text style={style.infoRowContentText}> Status: </Text><Icon name={props.appointment.status === 'todo' ? 'snooze' : 'alarm-on'} /></View>
             </View>
 
             <View style={style.mainContainer}>
@@ -189,9 +212,20 @@ const AppointmentItem = props => {
                             <Text style={style.infoRowTitleText}>Rendez-vous</Text>
                         </View>
                     </View>
-                    <View style={style.infoRowContent}>
+                    <View style={style.infoRowContentDate}>
                         {/* TODO: add a calendar input here */}
-                        <Text style={style.infoRowContentText}>CALENDAR INPUT HERE</Text>
+                        <Button onPress={() => dataTimePickerShow('date')} titleStyle={{ fontSize: 10 }} title='calendar' />
+                        <Button onPress={() => dataTimePickerShow('time')} titleStyle={{ fontSize: 10 }} title='time' />
+
+                        {showDateTimePicker
+                            && <DateTimePicker
+                                value={dateTime}
+                                mode={dateTimePickerMode}
+                                display={dateTimePickerMode === 'date' ? 'calendar' : 'clock'}
+                                is24Hour
+                                onChange={dateTimeOnChange}
+                            />}
+
                     </View>
                 </View>
             </View>
