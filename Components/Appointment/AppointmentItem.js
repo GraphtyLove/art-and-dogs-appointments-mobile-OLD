@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { Icon, Button, Input } from 'react-native-elements'
+import { Icon, Button } from 'react-native-elements'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SendSMS from 'react-native-sms'
 
@@ -89,7 +89,7 @@ const AppointmentItem = props => {
     // Constants
     const STATUS = props.appointment.status === 'todo' ? 'EN ATTENTE' : 'A CONTACTER'
     // States:
-    const [dateTime, setDateTime] = useState(new Date(1598051730000))
+    const [dateTime, setDateTime] = useState(null)
     const [dateTimePickerMode, setDateTimePickerMode] = useState('date')
     const [showDateTimePicker, setShowDateTimePicker] = useState(false)
 
@@ -107,11 +107,7 @@ const AppointmentItem = props => {
         // Set the date/time in the state
         setDateTime(currentDate)
         // Format SMS_STRING with the date and time
-        SMS_STRING = `Salon Art and Dogs bonjour, je vous contacte suite à votre demande 
-        de rendez - vous effectuée le ${ props.appointment.date}. Je peux 
-        vous proposer le: ${selectedDate.getDate()}/${selectedDate.getMonth()} à 
-        ${selectedDate.getHours()}h${selectedDate.getMinutes()}. Merci de me confirmer ou 
-        non votre présence. Une bonne journée.`
+        SMS_STRING = `Salon Art and Dogs bonjour, je vous contacte suite à votre demande de rendez - vous effectuée le ${props.appointment.date}. Je peux vous proposer le: ${selectedDate.getDate()}/${selectedDate.getMonth()} à ${selectedDate.getHours()}h${selectedDate.getMinutes()}. Merci de me confirmer ou non votre présence. Une bonne journée.`
         if (dateTimePickerMode === 'date') {
             setDateTimePickerMode('time')
             setShowDateTimePicker(true)
@@ -220,14 +216,16 @@ const AppointmentItem = props => {
                     <View style={style.infoRowContentDate}>
                         <Button
                             onPress={() => dataTimePickerShow()}
-                            titleStyle={{ fontSize: 12 }}
-                            buttonStyle={{ height: 12 }}
-                            title={`${dateTime.getDate().toString()}/${dateTime.getMonth().toString()} à ${dateTime.getHours().toString()}h${dateTime.getMinutes().toString()}`}
+                            titleStyle={{ fontSize: 12, color: '#000' }}
+                            buttonStyle={{ height: 12, backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+                            title={dateTime
+                                ? `${dateTime.getDate().toString()}/${dateTime.getMonth().toString()} à ${dateTime.getHours().toString()}h${dateTime.getMinutes().toString()}`
+                                : 'Choisir une date'}
                         />
 
                         {showDateTimePicker
                             && <DateTimePicker
-                                value={dateTime}
+                                value={dateTime ? dateTime : new Date()}
                                 mode={dateTimePickerMode}
                                 display={dateTimePickerMode === 'date' ? 'calendar' : 'clock'}
                                 is24Hour
