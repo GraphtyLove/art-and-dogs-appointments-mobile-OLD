@@ -9,7 +9,7 @@ const style = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 3,
         width: '90%',
-        height: 380,
+        height: 280,
         justifyContent: 'space-around',
         marginBottom: 30,
     },
@@ -49,11 +49,15 @@ const style = StyleSheet.create({
         width: '50%',
     },
     infoRowTitleText: {
-        fontSize: 10,
+        fontSize: 8,
         marginLeft: 5,
     },
     infoRowContentText: {
         fontSize: 10,
+    },
+    remarqueText: {
+        fontSize: 8,
+        textAlign: 'justify',
     },
     infoRowContentTextBold: {
         fontSize: 10,
@@ -175,7 +179,7 @@ const AppointmentItem = props => {
                         </View>
                     </View>
                     <View style={style.infoRowContent}>
-                        <Text style={style.infoRowContentText}>{props.appointment.remarque}</Text>
+                        <Text style={style.remarqueText}>{props.appointment.remarque}</Text>
                     </View>
                 </View>
                 <View style={style.infoRow}>
@@ -193,9 +197,9 @@ const AppointmentItem = props => {
             </View>
 
             <View style={style.footerContainer}>
-                <Button onPress={() => appointmentDelete(props.appointment._id.$oid)} buttonStyle={{ width: 90, backgroundColor: '#cb444a' }} titleStyle={{ fontSize: 10 }} title='Supprimer' />
-                <Button onPress={() => sendSms()} buttonStyle={{ width: 90 }} titleStyle={{ fontSize: 10 }} title='SMS' />
-                <Button onPress={() => appointmentStatusInvert(props.appointment)} buttonStyle={{ width: 90, backgroundColor: '#53a451' }} titleStyle={{ fontSize: 10 }} title={STATUS} />
+                <Button onPress={() => appointmentDelete(props.appointment._id.$oid)} buttonStyle={{ width: 100, backgroundColor: '#cb444a' }} titleStyle={{ fontSize: 10, fontWeight: 'bold' }} title='Supprimer' />
+                <Button onPress={() => sendSms()} buttonStyle={{ width: 100 }} titleStyle={{ fontSize: 10, fontWeight: 'bold' }} title='SMS' />
+                <Button onPress={() => appointmentStatusInvert(props.appointment)} buttonStyle={{ width: 100, backgroundColor: '#53a451' }} titleStyle={{ fontSize: 10, fontWeight: 'bold' }} title={STATUS} />
             </View>
 
         </View>
