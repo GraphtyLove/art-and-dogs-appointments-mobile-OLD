@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Icon, Button } from 'react-native-elements'
+import SendSMS from 'react-native-sms'
 
 // Style:
 const style = StyleSheet.create({
@@ -72,8 +73,20 @@ const style = StyleSheet.create({
 const API_URL = "http://51.210.8.134/"
 
 const AppointmentItem = props => {
-
+    // Constants
     const STATUS = props.appointment.status === 'todo' ? 'EN ATTENTE' : 'A CONTACTER'
+
+
+    const appointmentDay = '12'
+    const appointmentMonth = '02'
+    const appointmentHour = '12'
+    const appointmentMinute = '16'
+
+    let SMS_STRING = `Salon Art and Dogs bonjour, je vous contacte suite à votre demande 
+                        de rendez - vous effectuée le ${ props.appointment.date}. Je peux 
+                        vous proposer le: ${appointmentDay} /${appointmentMonth} à 
+                        ${appointmentHour}h${appointmentMinute}. Merci de me confirmer ou 
+                        non votre présence. Une bonne journée.`
 
     const appointmentDelete = appointmentId => {
         console.log('id: ', appointmentId)
@@ -101,13 +114,31 @@ const AppointmentItem = props => {
             .then(resultJson => { resultJson.success && props.fetchAppointments() })
             .catch(err => console.log(err))
     }
+    const sendSms = () => {
+        SendSMS.send({
+            //Message body
+            body: 'Message sent',
+            //Recipients Number
+            recipients: [props.appointment.phone],
+            //An array of types that would trigger a "completed" response when using android
+            successTypes: ['sent', 'queued']
+        }, (completed, cancelled, error) => {
+            if (completed) {
+                console.log('SMS Sent Completed')
+            } else if (cancelled) {
+                console.log('SMS Sent Cancelled')
+            } else if (error) {
+                console.log('Some error occured')
+            }
+        });
+    }
 
     return (
         <View style={style.container}>
 
             <View style={style.headerContainer}>
                 <Text style={style.infoRowContentTextBold}> {props.appointment.date} </Text>
-                <Text style={style.infoRowContentTextBold}> Status: O </Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}><Text style={style.infoRowContentTextBold}> Status: </Text><Icon name={props.appointment.status === 'todo' ? 'snooze' : 'alarm-on'} /></View>
             </View>
 
             <View style={style.mainContainer}>
@@ -162,9 +193,9 @@ const AppointmentItem = props => {
             </View>
 
             <View style={style.footerContainer}>
-                <Button onPress={() => appointmentDelete(props.appointment._id.$oid)} buttonStyle={{ width: 85, backgroundColor: '#cb444a' }} titleStyle={{ fontSize: 10 }} title='Supprimer' />
-                <Button onPress={() => console.log('sms')} buttonStyle={{ width: 85 }} titleStyle={{ fontSize: 10 }} title='SMS' />
-                <Button onPress={() => appointmentStatusInvert(props.appointment)} buttonStyle={{ width: 85, backgroundColor: '#53a451' }} titleStyle={{ fontSize: 10 }} title={STATUS} />
+                <Button onPress={() => appointmentDelete(props.appointment._id.$oid)} buttonStyle={{ width: 90, backgroundColor: '#cb444a' }} titleStyle={{ fontSize: 10 }} title='Supprimer' />
+                <Button onPress={() => sendSms()} buttonStyle={{ width: 90 }} titleStyle={{ fontSize: 10 }} title='SMS' />
+                <Button onPress={() => appointmentStatusInvert(props.appointment)} buttonStyle={{ width: 90, backgroundColor: '#53a451' }} titleStyle={{ fontSize: 10 }} title={STATUS} />
             </View>
 
         </View>

@@ -5,7 +5,6 @@ import Test from './Components/Test.js'
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#FEBE51',
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
@@ -13,7 +12,7 @@ const styles = StyleSheet.create({
 
 export default function App() {
     return (
-        <ScrollView contentContainerStyle={styles.container} style={{ flex: 1 }}>
+        <ScrollView contentContainerStyle={styles.container} style={{ flex: 1, backgroundColor: '#FEBE51', }}>
             <Dashboard />
         </ScrollView>
     );
