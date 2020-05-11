@@ -93,8 +93,8 @@ const AppointmentItem = props => {
     const [showDateTimePicker, setShowDateTimePicker] = useState(false)
 
 
-    const dataTimePickerShow = mode => {
-        setDateTimePickerMode(mode)
+    const dataTimePickerShow = () => {
+        setDateTimePickerMode('date')
         setShowDateTimePicker(true)
     }
 
@@ -111,6 +111,10 @@ const AppointmentItem = props => {
         vous proposer le: ${selectedDate.getDate()}/${selectedDate.getMonth()} à 
         ${selectedDate.getHours()}h${selectedDate.getMinutes()}. Merci de me confirmer ou 
         non votre présence. Une bonne journée.`
+        if (dateTimePickerMode === 'date') {
+            setDateTimePickerMode('time')
+            setShowDateTimePicker(true)
+        }
     }
 
 
@@ -214,8 +218,7 @@ const AppointmentItem = props => {
                     </View>
                     <View style={style.infoRowContentDate}>
                         {/* TODO: add a calendar input here */}
-                        <Button onPress={() => dataTimePickerShow('date')} titleStyle={{ fontSize: 10 }} title='calendar' />
-                        <Button onPress={() => dataTimePickerShow('time')} titleStyle={{ fontSize: 10 }} title='time' />
+                        <Button onPress={() => dataTimePickerShow()} titleStyle={{ fontSize: 10 }} title='choisir' />
 
                         {showDateTimePicker
                             && <DateTimePicker
