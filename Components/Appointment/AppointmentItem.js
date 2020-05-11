@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { Icon, Button } from 'react-native-elements'
+import { Icon, Button, Input } from 'react-native-elements'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SendSMS from 'react-native-sms'
 
@@ -71,7 +71,8 @@ const style = StyleSheet.create({
     infoRowContentDate: {
         width: '50%',
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
     },
     titleWarp: {
         flexDirection: 'row',
@@ -217,8 +218,12 @@ const AppointmentItem = props => {
                         </View>
                     </View>
                     <View style={style.infoRowContentDate}>
-                        {/* TODO: add a calendar input here */}
-                        <Button onPress={() => dataTimePickerShow()} titleStyle={{ fontSize: 10 }} title='choisir' />
+                        <Button
+                            onPress={() => dataTimePickerShow()}
+                            titleStyle={{ fontSize: 12 }}
+                            buttonStyle={{ height: 12 }}
+                            title={`${dateTime.getDate().toString()}/${dateTime.getMonth().toString()} à ${dateTime.getHours().toString()}h${dateTime.getMinutes().toString()}`}
+                        />
 
                         {showDateTimePicker
                             && <DateTimePicker
