@@ -81,8 +81,6 @@ const style = StyleSheet.create({
 
 })
 
-const API_URL = "http://51.210.8.134/"
-
 let SMS_STRING = ''
 
 const AppointmentItem = props => {

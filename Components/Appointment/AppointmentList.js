@@ -27,7 +27,6 @@ const AppointmentList = props => {
     // States:
     const [appointmentList, setAppointmentList] = useState([])
     const [loading, setLoading] = useState(true)
-    const [apiError, setApiError] = useState('')
 
     // Appointment lists
     const appointmentStatusTodo = appointmentList.filter(appointment => appointment.status === 'todo')
@@ -35,7 +34,7 @@ const AppointmentList = props => {
 
     useEffect(() => {
         console.log('EFFECT')
-        const subscriber = firestore().collection('appointments').onSnapshot( querySnapshot => {
+        const subscriber = firestore().collection('appointments').onSnapshot(querySnapshot => {
             const appointments = []
 
             querySnapshot.forEach( documentSnapshot => {
@@ -76,10 +75,6 @@ const AppointmentList = props => {
 
             {appointmentStatusWaiting.length === 0 && props.switcherIndex === 1
                 && <Text style={style.EmptyMessage}>Pas de rendez-vous en attente! 👏🏽</Text>}
-
-            {apiError.length > 0
-                && <Text style={style.errorMessage}>L'application ne peut charger la liste de rendez-vous.
-                        Êtes-vous connecté à internet?</Text>}
         </View>
     )
 }
