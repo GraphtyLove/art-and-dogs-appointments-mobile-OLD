@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { Icon, Button } from 'react-native-elements'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SendSMS from 'react-native-sms'
+import firestore from '@react-native-firebase/firestore'
 
 // Style:
 const style = StyleSheet.create({
@@ -81,22 +82,22 @@ const style = StyleSheet.create({
 
 })
 
-let SMS_STRING = ''
+let sms_string = ''
 
 const AppointmentItem = props => {
     // Constants
     const STATUS = props.appointment.status === 'todo' ? 'EN ATTENTE' : 'A CONTACTER'
     // States:
-    const [dateTime, setDateTime] = useState(null)
+    const [dateTime, setDateTime] = useState(props.appointment.appointmentDateTime && new Date(props.appointment.appointmentDateTime.toDate()))
     const [dateTimePickerMode, setDateTimePickerMode] = useState('date')
     const [showDateTimePicker, setShowDateTimePicker] = useState(false)
 
 
+    // * --- DateTime picker --- *
     const dataTimePickerShow = () => {
         setDateTimePickerMode('date')
         setShowDateTimePicker(true)
     }
-
     const dateTimeOnChange = (event, selectedDate) => {
         // Get the date
         const currentDate = selectedDate || dateTime
@@ -104,42 +105,33 @@ const AppointmentItem = props => {
         setShowDateTimePicker(false)
         // Set the date/time in the state
         setDateTime(currentDate)
-        // Format SMS_STRING with the date and time
-        SMS_STRING = `Salon Art and Dogs bonjour, je vous contacte suite à votre demande de rendez - vous effectuée le ${props.appointment.date}. Je peux vous proposer le: ${selectedDate.getDate()}/${selectedDate.getMonth()} à ${selectedDate.getHours()}h${selectedDate.getMinutes()}. Merci de me confirmer ou non votre présence. Une bonne journée.`
+        // Format sms_string with the date and time
+        if (dateTimePickerMode === 'time'){
+            sms_string = `Salon Art and Dogs bonjour, je vous contacte suite à votre demande de rendez - vous effectuée le ${props.appointment.date}. Je peux vous proposer le: ${selectedDate.getDate()}/${selectedDate.getMonth()} à ${selectedDate.getHours()}h${selectedDate.getMinutes()}. Merci de me confirmer ou non votre présence. Une bonne journée.`
+            setAppointmentDateTime(currentDate)
+        }
         if (dateTimePickerMode === 'date') {
             setDateTimePickerMode('time')
             setShowDateTimePicker(true)
         }
     }
 
+    // * --- Database functions --- *
+    const appointmentDelete = () => {
 
-    const appointmentDelete = appointmentId => {
-        console.log('id: ', appointmentId)
-        fetch(API_URL + "appointment-delete", {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify({ id: appointmentId }),
-        })
-            .then(result => result.json())
-            .then(resultJson => { resultJson.success && props.fetchAppointments() })
+        console.log('id: ', props.appointment)
+        firestore().collection('appointments').doc(props.appointment.key).delete()
     }
-    const appointmentStatusInvert = appointmentData => {
-        appointmentData.id = appointmentData._id.$oid
-        console.log('invert: ', appointmentData)
-        fetch(API_URL + "appointment-status-invert", {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify(appointmentData),
-        })
-            .then(result => result.json())
-            .then(resultJson => { resultJson.success && props.fetchAppointments() })
-            .catch(err => console.log(err))
+    const appointmentStatusInvert = () => {
+        let oppositeStatus = props.appointment.status === 'todo' ? 'waiting' : 'todo'
+        firestore().collection('appointments').doc(props.appointment.key).update({ 'status': oppositeStatus})
     }
+    const setAppointmentDateTime = (appointmentDate) => {
+        dateTime && firestore().collection('appointments').doc(props.appointment.key).update({ 'appointmentDateTime': appointmentDate })
+    }
+
     const sendSms = () => {
+        console.log(dateTime)
         // SendSMS.send({
         //     //Message body
         //     body: 'Message sent',
@@ -156,7 +148,7 @@ const AppointmentItem = props => {
         //         console.log('Some error occured')
         //     }
         // })
-        console.log(SMS_STRING)
+        console.log(sms_string)
     }
 
     return (
@@ -235,9 +227,9 @@ const AppointmentItem = props => {
             </View>
 
             <View style={style.footerContainer}>
-                <Button onPress={() => appointmentDelete(props.appointment._id.$oid)} buttonStyle={{ width: 100, backgroundColor: '#cb444a' }} titleStyle={{ fontSize: 10, fontWeight: 'bold' }} title='Supprimer' />
+                <Button onPress={() => appointmentDelete()} buttonStyle={{ width: 100, backgroundColor: '#cb444a' }} titleStyle={{ fontSize: 10, fontWeight: 'bold' }} title='Supprimer' />
                 <Button onPress={() => sendSms()} buttonStyle={{ width: 100 }} titleStyle={{ fontSize: 10, fontWeight: 'bold' }} title='SMS' />
-                <Button onPress={() => appointmentStatusInvert(props.appointment)} buttonStyle={{ width: 100, backgroundColor: '#53a451' }} titleStyle={{ fontSize: 10, fontWeight: 'bold' }} title={STATUS} />
+                <Button onPress={() => appointmentStatusInvert()} buttonStyle={{ width: 100, backgroundColor: '#53a451' }} titleStyle={{ fontSize: 10, fontWeight: 'bold' }} title={STATUS} />
             </View>
 
         </View>
