@@ -17,6 +17,8 @@
     "@material-ui/core": "^4.9.13",
     "@material-ui/icons": "^4.9.1",
     "@react-native-community/datetimepicker": "^2.3.2",
+    "@react-native-firebase/app": "^7.0.0",
+    "@react-native-firebase/firestore": "^7.0.1",
     "expo": "~37.0.3",
     "expo-updates": "~0.1.0",
     "react": "~16.9.0",

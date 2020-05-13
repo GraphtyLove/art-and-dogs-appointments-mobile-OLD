@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, Button } from 'react-native'
+import firestore from '@react-native-firebase/firestore'
 
 // Components:
 import AppointmentItem from './AppointmentItem.js'
 
-// Constants:
-const API_URL = "http://51.210.8.134/"
 
 // Style:
 const style = StyleSheet.create({
@@ -27,53 +26,47 @@ const style = StyleSheet.create({
 const AppointmentList = props => {
     // States:
     const [appointmentList, setAppointmentList] = useState([])
+    const [loading, setLoading] = useState(true)
     const [apiError, setApiError] = useState('')
 
     // Appointment lists
     const appointmentStatusTodo = appointmentList.filter(appointment => appointment.status === 'todo')
     const appointmentStatusWaiting = appointmentList.filter(appointment => appointment.status === 'waiting')
 
-    // API fetch:
-    const fetchAppointments = () => {
-        fetch(API_URL + "appointment-admin", {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify({
-                userName: 'deesse',
-                password: '18046161'
-            }),
-        })
-            .then(result => result.json())
-            .then(resultJson => {
-                console.log('result', resultJson.length)
-                setAppointmentList(resultJson)
-            })
-            .catch(() => setApiError("Erreur interne du serveur. Veuillez réessayer plus tard."))
-    }
-
     useEffect(() => {
-        fetchAppointments()
+        console.log('EFFECT')
+        const subscriber = firestore().collection('appointments').onSnapshot( querySnapshot => {
+            const appointments = []
+
+            querySnapshot.forEach( documentSnapshot => {
+                appointments.push({
+                    ...documentSnapshot.data(),
+                    key: documentSnapshot.id,
+                })
+            })
+            setAppointmentList(appointments)
+            setLoading(false)
+        })
+        return () => subscriber
     }, [])
 
     return (
         <View style={style.container}>
+            {loading && <Text>Chargement des rendez-vous...</Text>}
+
             {appointmentStatusWaiting.length > 0
                 && props.switcherIndex === 1
                 && appointmentStatusWaiting.map(appointment => <AppointmentItem
-                    key={appointment._id.$oid}
+                    key={appointment.id}
                     appointment={appointment}
-                    fetchAppointments={fetchAppointments}
                 />)
             }
 
             {appointmentStatusTodo.length > 0
                 && props.switcherIndex === 0
                 && appointmentStatusTodo.map(appointment => <AppointmentItem
-                    key={appointment._id.$oid}
+                    key={appointment.id}
                     appointment={appointment}
-                    fetchAppointments={fetchAppointments}
                 />)
             }
 
