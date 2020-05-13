@@ -93,6 +93,25 @@ const AppointmentItem = props => {
     const [showDateTimePicker, setShowDateTimePicker] = useState(false)
 
 
+    // * --- Output format --- *
+    const formatPhone = phone => {
+        if(phone && phone.length === 10 && phone[0] === '0'){
+            phone = phone.split('')
+            phone.splice(4, 0, ' ')
+            phone.splice(7, 0, ' ')
+            phone.splice(10, 0, ' ')
+            phone = phone.join('')
+        } else if (phone && phone.length === 12 && phone[0] === '+') {
+                phone = phone.split('')
+                phone.splice(3, 0, ' ')
+                phone.splice(7, 0, ' ')
+                phone.splice(10, 0, ' ')
+                phone.splice(13, 0, ' ')
+                phone = phone.join('')
+        }
+        return phone
+    }
+
     // * --- DateTime picker --- *
     const dataTimePickerShow = () => {
         setDateTimePickerMode('date')
@@ -170,7 +189,7 @@ const AppointmentItem = props => {
                     </View>
                     <View style={style.infoRowContent}>
                         <Text style={style.infoRowContentTextBold}>{props.appointment.firstName} {props.appointment.lastName}</Text>
-                        <Text style={style.infoRowContentText}>{props.appointment.phone}</Text>
+                        <Text style={style.infoRowContentText}>{formatPhone(props.appointment.phone)}</Text>
                     </View>
                 </View>
                 <View style={style.infoRow}>
