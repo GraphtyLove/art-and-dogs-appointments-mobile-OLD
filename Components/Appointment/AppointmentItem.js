@@ -86,7 +86,7 @@ const AppointmentItem = props => {
     // Constants
     const STATUS = props.appointment.status === 'todo' ? 'En attente' : 'A contacter'
     // States:
-    const [dateTime, setDateTime] = useState(props.appointment.appointmentDateTime && new Date(props.appointment.appointmentDateTime.toDate()))
+    const [dateTime, setDateTime] = useState(props.appointment.appointmentProposal && new Date(props.appointment.appointmentProposal.toDate()))
     const [dateTimePickerMode, setDateTimePickerMode] = useState('date')
     const [showDateTimePicker, setShowDateTimePicker] = useState(false)
     
