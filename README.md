@@ -7,10 +7,18 @@ This is a mobile app that provide a dashboard to manage appointments taken on th
 To help the groomer to manage appointment easily.
 
 ## Technos
-It use React Native for the front-end and it communicate with a Flask python API.
+It use React Native for the front-end and it communicate with Google Firebase (firestore).
+The create to I used **expo**.
 
-## WHo?
-Maxim Berge
+## Who?
+Maxim Berge - programming
+Cassandra Caestecker - design
+
+## Deployment
+To create an APK installer for android, follow these steps:
+- At your project's root type: `expo publish`
+- Then go in the `android/` folder and type: `./gradlew assembleRelease`
+You will  find the APK in the `android/app/build/outputs/release/app-release.apk`
 
 ## Remarques:
 To set-up the firebase firestore (database like), you need to add a `google-services.json` file at this path of the repo:
