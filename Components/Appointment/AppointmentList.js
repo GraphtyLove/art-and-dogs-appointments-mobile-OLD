@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, ScrollView, Button } from 'react-native'
 import firestore from '@react-native-firebase/firestore'
-
 // Components:
 import AppointmentItem from './AppointmentItem.js'
-
+// import { LocalNotification } from '../../services/LocalPushController'
 
 // Style:
 const style = StyleSheet.create({
@@ -23,6 +22,8 @@ const style = StyleSheet.create({
     }
 })
 
+
+
 const AppointmentList = props => {
     // States:
     const [appointmentList, setAppointmentList] = useState([])
@@ -31,6 +32,8 @@ const AppointmentList = props => {
     // Appointment lists
     const appointmentStatusTodo = appointmentList.filter(appointment => appointment.status === 'todo')
     const appointmentStatusWaiting = appointmentList.filter(appointment => appointment.status === 'waiting')
+
+    // const handleNotifications = () => LocalNotification()
 
     useEffect(() => {
         const subscriber = firestore().collection('appointments').onSnapshot(querySnapshot => {
@@ -45,6 +48,8 @@ const AppointmentList = props => {
             setAppointmentList(appointments)
             setLoading(false)
         })
+        
+
         return () => subscriber
     }, [])
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Alert } from 'react-native'
 import { Icon, Button } from 'react-native-elements'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import firestore from '@react-native-firebase/firestore'
@@ -142,7 +142,15 @@ const AppointmentItem = props => {
 
     // * --- Database functions --- *
     const appointmentDelete = () => {
-        firestore().collection('appointments').doc(props.appointment.key).delete()
+        // 
+        Alert.alert(
+            "Supprimer",
+            "Êtes-vous sûr de vouloir supprimer le rendez-vous?",
+            [
+                {text: 'ANNULER'},
+                { text: 'SUPPRIMER', onPress: () => firestore().collection('appointments').doc(props.appointment.key).delete()},
+            ]
+        )
     }
     const appointmentStatusInvert = () => {
         let oppositeStatus = props.appointment.status === 'todo' ? 'waiting' : 'todo'
@@ -193,17 +201,22 @@ const AppointmentItem = props => {
                         <Text style={style.infoRowContentText}>{props.appointment.dogBreed}</Text>
                     </View>
                 </View>
-                <View style={style.infoRow}>
-                    <View style={style.infoRowTitle}>
-                        <View style={style.titleWarp}>
-                            <Icon name='comment' />
-                            <Text style={style.infoRowTitleText}>Remarque</Text>
+
+                {props.appointment.remarque
+                    ? <View style={style.infoRow}>
+                        <View style={style.infoRowTitle}>
+                            <View style={style.titleWarp}>
+                                <Icon name='comment' />
+                                <Text style={style.infoRowTitleText}>Remarque</Text>
+                            </View>
+                        </View>
+                        <View style={style.infoRowContent}>
+                            <Text style={style.remarqueText}>{props.appointment.remarque}</Text>
                         </View>
                     </View>
-                    <View style={style.infoRowContent}>
-                        <Text style={style.remarqueText}>{props.appointment.remarque}</Text>
-                    </View>
-                </View>
+                    : null
+                }
+
                 <View style={style.infoRow}>
                     <View style={style.infoRowTitle}>
                         <View style={style.titleWarp}>
