@@ -25,7 +25,7 @@ const Switcher = props => {
                     borderColor: '#fff',
                     borderWidth: 5,
                 }}
-                textStyle={{ color: 'black' }}
+                textStyle={{ color: 'black', fontSize: 18 }}
                 selectedButtonStyle={{ backgroundColor: 'white' }}
                 selectedTextStyle={{ color: 'black', fontWeight: 'bold' }}
 

@@ -33,7 +33,6 @@ const AppointmentList = props => {
     const appointmentStatusWaiting = appointmentList.filter(appointment => appointment.status === 'waiting')
 
     useEffect(() => {
-        console.log('EFFECT')
         const subscriber = firestore().collection('appointments').onSnapshot(querySnapshot => {
             const appointments = []
 

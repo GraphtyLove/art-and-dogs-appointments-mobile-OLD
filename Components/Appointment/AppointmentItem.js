@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Icon, Button } from 'react-native-elements'
-import DateTimePicker from '@react-native-community/datetimepicker';
-import SendSMS from 'react-native-sms'
+import DateTimePicker from '@react-native-community/datetimepicker'
 import firestore from '@react-native-firebase/firestore'
-
+import Communications from 'react-native-communications';
 // Style:
 const style = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
         borderRadius: 3,
         width: '90%',
-        height: 280,
+        height: 400,
         justifyContent: 'space-around',
         marginBottom: 30,
     },
@@ -40,9 +39,7 @@ const style = StyleSheet.create({
         marginBottom: 20,
     },
     footerContainer: {
-        flex: 2,
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        flex: 4.2,
         alignItems: 'center',
     },
     infoRowTitle: {
@@ -51,18 +48,18 @@ const style = StyleSheet.create({
         width: '50%',
     },
     infoRowTitleText: {
-        fontSize: 8,
+        fontSize: 14,
         marginLeft: 5,
     },
     infoRowContentText: {
-        fontSize: 10,
+        fontSize: 16,
     },
     remarqueText: {
-        fontSize: 8,
+        fontSize: 14,
         textAlign: 'justify',
     },
     infoRowContentTextBold: {
-        fontSize: 10,
+        fontSize: 16,
         fontWeight: 'bold',
     },
     infoRowContent: {
@@ -78,6 +75,7 @@ const style = StyleSheet.create({
     titleWarp: {
         flexDirection: 'row',
         alignItems: 'center',
+        maxWidth: '80%'
     }
 
 })
@@ -86,7 +84,7 @@ let sms_string = ''
 
 const AppointmentItem = props => {
     // Constants
-    const STATUS = props.appointment.status === 'todo' ? 'EN ATTENTE' : 'A CONTACTER'
+    const STATUS = props.appointment.status === 'todo' ? 'En attente' : 'A contacter'
     // States:
     const [dateTime, setDateTime] = useState(props.appointment.appointmentDateTime && new Date(props.appointment.appointmentDateTime.toDate()))
     const [dateTimePickerMode, setDateTimePickerMode] = useState('date')
@@ -137,8 +135,6 @@ const AppointmentItem = props => {
 
     // * --- Database functions --- *
     const appointmentDelete = () => {
-
-        console.log('id: ', props.appointment)
         firestore().collection('appointments').doc(props.appointment.key).delete()
     }
     const appointmentStatusInvert = () => {
@@ -148,34 +144,21 @@ const AppointmentItem = props => {
     const setAppointmentDateTime = (appointmentDate) => {
         dateTime && firestore().collection('appointments').doc(props.appointment.key).update({ 'appointmentDateTime': appointmentDate })
     }
-
-    const sendSms = () => {
-        console.log(dateTime)
-        // SendSMS.send({
-        //     //Message body
-        //     body: 'Message sent',
-        //     //Recipients Number
-        //     recipients: [props.appointment.phone],
-        //     //An array of types that would trigger a "completed" response when using android
-        //     successTypes: ['sent', 'queued']
-        // }, (completed, cancelled, error) => {
-        //     if (completed) {
-        //         console.log('SMS Sent Completed')
-        //     } else if (cancelled) {
-        //         console.log('SMS Sent Cancelled')
-        //     } else if (error) {
-        //         console.log('Some error occured')
-        //     }
-        // })
-        console.log(sms_string)
-    }
+    // * --- Communications functions
+    const sendSms = () => Communications.text(props.appointment.phone, sms_string)
+    const phoneCall = () => Communications.phonecall(props.appointment.phone, false)
 
     return (
         <View style={style.container}>
 
             <View style={style.headerContainer}>
                 <Text style={style.infoRowContentTextBold}> {props.appointment.date} </Text>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}><Text style={style.infoRowContentText}> Status: </Text><Icon name={props.appointment.status === 'todo' ? 'snooze' : 'alarm-on'} /></View>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={style.infoRowContentText}>
+                        Status: 
+                    </Text>
+                    <Icon name={props.appointment.status === 'todo' ? 'snooze' : 'alarm-on'} />
+                </View>
             </View>
 
             <View style={style.mainContainer}>
@@ -208,7 +191,7 @@ const AppointmentItem = props => {
                     <View style={style.infoRowTitle}>
                         <View style={style.titleWarp}>
                             <Icon name='comment' />
-                            <Text style={style.infoRowTitleText}>Remarque du client</Text>
+                            <Text style={style.infoRowTitleText}>Remarque</Text>
                         </View>
                     </View>
                     <View style={style.infoRowContent}>
@@ -246,9 +229,39 @@ const AppointmentItem = props => {
             </View>
 
             <View style={style.footerContainer}>
-                <Button onPress={() => appointmentDelete()} buttonStyle={{ width: 100, backgroundColor: '#cb444a' }} titleStyle={{ fontSize: 10, fontWeight: 'bold' }} title='Supprimer' />
-                <Button onPress={() => sendSms()} buttonStyle={{ width: 100 }} titleStyle={{ fontSize: 10, fontWeight: 'bold' }} title='SMS' />
-                <Button onPress={() => appointmentStatusInvert()} buttonStyle={{ width: 100, backgroundColor: '#53a451' }} titleStyle={{ fontSize: 10, fontWeight: 'bold' }} title={STATUS} />
+                <Button 
+                    onPress={() => appointmentDelete()} 
+                    containerStyle={{width: '80%', marginBottom: 10}} 
+                    buttonStyle={{ backgroundColor: '#cb444a', height: 45 }} 
+                    titleStyle={{ fontSize: 15, fontWeight: 'bold' }} 
+                    title='SUPPRIMER' 
+                />
+                
+                <View style={{ flexDirection: 'row' }}>
+                    <Button 
+                        onPress={() => phoneCall()} 
+                        containerStyle={{ width: '39%', marginBottom: 2, marginRight: '2%' }} 
+                        buttonStyle={{ height: 45 }} 
+                        titleStyle={{ fontSize: 15, fontWeight: 'bold' }} 
+                        title='Appel' 
+                    />
+                    <Button 
+                        onPress={() => sendSms()} 
+                        containerStyle={{ width: '39%', marginBottom: 2 }} 
+                        buttonStyle={{ height: 45 }} 
+                        titleStyle={{ fontSize: 15, fontWeight: 'bold' }} 
+                        title='SMS' 
+                    />
+                    
+                </View>
+                
+                <Button 
+                    onPress={() => appointmentStatusInvert()} 
+                    containerStyle={{ width: '80%' }} 
+                    buttonStyle={{ backgroundColor: '#53a451', height: 45 }} 
+                    titleStyle={{ fontSize: 15, fontWeight: 'bold' }} 
+                    title={STATUS} 
+                />
             </View>
 
         </View>
