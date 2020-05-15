@@ -10,7 +10,7 @@ const style = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 3,
         width: '90%',
-        height: 400,
+        height: 450,
         justifyContent: 'space-around',
         marginBottom: 30,
     },
@@ -27,7 +27,7 @@ const style = StyleSheet.create({
         fontWeight: 'bold',
     },
     mainContainer: {
-        flex: 5,
+        flex: 6,
         alignContent: 'center',
         paddingHorizontal: 12,
         paddingVertical: 10,
@@ -55,7 +55,7 @@ const style = StyleSheet.create({
         fontSize: 16,
     },
     remarqueText: {
-        fontSize: 14,
+        fontSize: 12,
         textAlign: 'justify',
     },
     infoRowContentTextBold: {
@@ -168,7 +168,6 @@ const AppointmentItem = props => {
                             <Icon name='person' />
                             <Text style={style.infoRowTitleText}>Client</Text>
                         </View>
-
                     </View>
                     <View style={style.infoRowContent}>
                         <Text style={style.infoRowContentTextBold}>{props.appointment.firstName} {props.appointment.lastName}</Text>
@@ -208,10 +207,10 @@ const AppointmentItem = props => {
                     <View style={style.infoRowContentDate}>
                         <Button
                             onPress={() => dataTimePickerShow()}
-                            titleStyle={{ fontSize: 12, color: '#000' }}
-                            buttonStyle={{ height: 12, backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+                            titleStyle={{ fontSize: 16, color: '#000' }}
+                            buttonStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
                             title={dateTime
-                                ? `${dateTime.getDate().toString()}/${dateTime.getMonth().toString()} à ${dateTime.getHours().toString()}h${dateTime.getMinutes().toString()}`
+                                ? `${dateTime.getDate().toString()}/${dateTime.getMonth().toString()} - ${dateTime.getHours().toString()}h${dateTime.getMinutes().toString()}`
                                 : 'Choisir une date'}
                         />
 
