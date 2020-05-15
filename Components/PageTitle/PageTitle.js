@@ -12,13 +12,13 @@ const style = StyleSheet.create({
         color: 'black',
         fontSize: 26,
         // fontFamily: 'Baskervville',
-        letterSpacing: 7,
+        letterSpacing: 3,
         marginBottom: 15,
     },
     divider: {
         backgroundColor: 'black',
         width: 70,
-        height: 10,
+        height: 6,
         alignSelf: 'center'
     }
 })
