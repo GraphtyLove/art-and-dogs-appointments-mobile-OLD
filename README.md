@@ -18,7 +18,7 @@ Cassandra Caestecker - design
 To create an APK installer for android, follow these steps:
 - At your project's root type: `expo publish`
 - Then go in the `android/` folder and type: `./gradlew assembleRelease`
-You will  find the APK in the `android/app/build/outputs/release/app-release.apk`
+You will  find the APK in the `android/app/build/outputs/apk/release/app-release.apk`
 
 ## Remarques:
 To set-up the firebase firestore (database like), you need to add a `google-services.json` file at this path of the repo:
