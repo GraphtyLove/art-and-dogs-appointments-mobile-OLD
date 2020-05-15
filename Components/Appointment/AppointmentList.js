@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, ScrollView, Button } from 'react-native'
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
 import firestore from '@react-native-firebase/firestore'
 // Components:
 import AppointmentItem from './AppointmentItem.js'
@@ -55,7 +55,12 @@ const AppointmentList = props => {
 
     return (
         <View style={style.container}>
-            {loading && <Text>Chargement des rendez-vous...</Text>}
+            {loading 
+                && <View>
+                    <Text style={{ marginBottom: 20 }}>Chargement des rendez-vous...</Text>
+                    <ActivityIndicator size='large' color='white' />
+                </View>
+                }
 
             {appointmentStatusWaiting.length > 0
                 && props.switcherIndex === 1
@@ -74,10 +79,10 @@ const AppointmentList = props => {
             }
 
 
-            {appointmentStatusTodo.length === 0 && props.switcherIndex === 0
+            {!loading && appointmentStatusTodo.length === 0 && props.switcherIndex === 0
                 && <Text style={style.EmptyMessage}>Pas de demande de rendez-vous! 👏🏽</Text>}
 
-            {appointmentStatusWaiting.length === 0 && props.switcherIndex === 1
+            {!loading && appointmentStatusWaiting.length === 0 && props.switcherIndex === 1
                 && <Text style={style.EmptyMessage}>Pas de rendez-vous en attente! 👏🏽</Text>}
         </View>
     )

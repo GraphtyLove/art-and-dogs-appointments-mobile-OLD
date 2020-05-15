@@ -93,7 +93,7 @@ const AppointmentItem = props => {
     
     useEffect(() => {
         if (dateTime && dateTime.getDate()) {
-            sms_string = `Salon Art and Dogs bonjour, je vous contacte suite à votre demande de rendez - vous effectuée le ${props.appointment.date}. Je peux vous proposer le: ${dateTime.getDate()}/${dateTime.getMonth()} à ${dateTime.getHours()}h${dateTime.getMinutes()}. Merci de me confirmer ou non votre présence. Une bonne journée.`
+            sms_string = `Salon Art and Dogs bonjour, je vous contacte suite à votre demande de rendez - vous effectuée le ${props.appointment.formDate}. Je peux vous proposer le: ${dateTime.getDate()}/${dateTime.getMonth()} à ${dateTime.getHours()}h${dateTime.getMinutes()}. Merci de me confirmer ou non votre présence. Une bonne journée.`
         }
     }, [])
 
@@ -131,7 +131,7 @@ const AppointmentItem = props => {
         setDateTime(currentDate)
         // Format sms_string with the date and time
         if (dateTimePickerMode === 'time' && selectedDate && selectedDate.getDate() && selectedDate.getHours()){
-            sms_string = `Salon Art and Dogs bonjour, je vous contacte suite à votre demande de rendez - vous effectuée le ${props.appointment.date}. Je peux vous proposer le: ${selectedDate.getDate()}/${selectedDate.getMonth()} à ${selectedDate.getHours()}h${selectedDate.getMinutes()}. Merci de me confirmer ou non votre présence. Une bonne journée.`
+            sms_string = `Salon Art and Dogs bonjour, je vous contacte suite à votre demande de rendez - vous effectuée le ${props.appointment.formDate}. Je peux vous proposer le: ${selectedDate.getDate()}/${selectedDate.getMonth()} à ${selectedDate.getHours()}h${selectedDate.getMinutes()}. Merci de me confirmer ou non votre présence. Une bonne journée.`
             setAppointmentDateTime(currentDate)
         }
         if (dateTimePickerMode === 'date') {
@@ -157,7 +157,7 @@ const AppointmentItem = props => {
         firestore().collection('appointments').doc(props.appointment.key).update({ 'status': oppositeStatus})
     }
     const setAppointmentDateTime = (appointmentDate) => {
-        dateTime && firestore().collection('appointments').doc(props.appointment.key).update({ 'appointmentDateTime': appointmentDate })
+        dateTime && firestore().collection('appointments').doc(props.appointment.key).update({ 'appointmentProposal': appointmentDate })
     }
     // * --- Communications functions
     const sendSms = () => Communications.textWithoutEncoding(props.appointment.phone, sms_string)
@@ -167,7 +167,7 @@ const AppointmentItem = props => {
         <View style={style.container}>
 
             <View style={style.headerContainer}>
-                <Text style={style.infoRowContentTextBold}> {props.appointment.date} </Text>
+                <Text style={style.infoRowContentTextBold}> {props.appointment.formDate} </Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={style.infoRowContentText}>
                         Status: 

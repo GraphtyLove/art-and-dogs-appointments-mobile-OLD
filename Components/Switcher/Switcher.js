@@ -6,7 +6,7 @@ import { ButtonGroup } from 'react-native-elements'
 const style = StyleSheet.create({
     container: {
         marginBottom: 50,
-        width: '60%',
+        width: '80%',
     },
 })
 
