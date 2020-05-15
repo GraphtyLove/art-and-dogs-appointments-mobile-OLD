@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Icon, Button } from 'react-native-elements'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import firestore from '@react-native-firebase/firestore'
-import Communications from 'react-native-communications';
+import Communications from 'react-native-communications'
 // Style:
 const style = StyleSheet.create({
     container: {
@@ -89,6 +89,13 @@ const AppointmentItem = props => {
     const [dateTime, setDateTime] = useState(props.appointment.appointmentDateTime && new Date(props.appointment.appointmentDateTime.toDate()))
     const [dateTimePickerMode, setDateTimePickerMode] = useState('date')
     const [showDateTimePicker, setShowDateTimePicker] = useState(false)
+    
+    
+    useEffect(() => {
+        if (dateTime && dateTime.getDate()) {
+            sms_string = `Salon Art and Dogs bonjour, je vous contacte suite à votre demande de rendez - vous effectuée le ${props.appointment.date}. Je peux vous proposer le: ${dateTime.getDate()}/${dateTime.getMonth()} à ${dateTime.getHours()}h${dateTime.getMinutes()}. Merci de me confirmer ou non votre présence. Une bonne journée.`
+        }
+    }, [])
 
 
     // * --- Output format --- *
@@ -123,7 +130,7 @@ const AppointmentItem = props => {
         // Set the date/time in the state
         setDateTime(currentDate)
         // Format sms_string with the date and time
-        if (dateTimePickerMode === 'time'){
+        if (dateTimePickerMode === 'time' && selectedDate && selectedDate.getDate() && selectedDate.getHours()){
             sms_string = `Salon Art and Dogs bonjour, je vous contacte suite à votre demande de rendez - vous effectuée le ${props.appointment.date}. Je peux vous proposer le: ${selectedDate.getDate()}/${selectedDate.getMonth()} à ${selectedDate.getHours()}h${selectedDate.getMinutes()}. Merci de me confirmer ou non votre présence. Une bonne journée.`
             setAppointmentDateTime(currentDate)
         }
@@ -145,7 +152,7 @@ const AppointmentItem = props => {
         dateTime && firestore().collection('appointments').doc(props.appointment.key).update({ 'appointmentDateTime': appointmentDate })
     }
     // * --- Communications functions
-    const sendSms = () => Communications.text(props.appointment.phone, sms_string)
+    const sendSms = () => Communications.textWithoutEncoding(props.appointment.phone, sms_string)
     const phoneCall = () => Communications.phonecall(props.appointment.phone, false)
 
     return (
