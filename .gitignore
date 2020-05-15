@@ -63,3 +63,7 @@ buck-out/
 
 # FIREBASE
 google-services.json
+
+# BUILD
+Android/app/build/
+*.hprof
