@@ -93,7 +93,7 @@ const AppointmentItem = props => {
     
     useEffect(() => {
         if (dateTime && dateTime.getDate()) {
-            sms_string = `Salon Art and Dogs bonjour, je vous contacte suite à votre demande de rendez - vous effectuée le ${props.appointment.formDate}. Je peux vous proposer le: ${dateTime.getDate()}/${dateTime.getMonth()} à ${dateTime.getHours()}h${dateTime.getMinutes()}. Merci de me confirmer ou non votre présence. Une bonne journée.`
+            sms_string = `Salon Art and Dogs bonjour, je vous contacte suite à votre demande de rendez - vous effectuée le ${props.appointment.formDate}. Je peux vous proposer le: ${dateTime.getDate()}/${dateTime.getMonth() + 1} à ${dateTime.getHours()}h${dateTime.getMinutes()}. Merci de me confirmer ou non votre présence. Une bonne journée.`
         }
     }, [])
 
@@ -131,7 +131,7 @@ const AppointmentItem = props => {
         setDateTime(currentDate)
         // Format sms_string with the date and time
         if (dateTimePickerMode === 'time' && selectedDate && selectedDate.getDate() && selectedDate.getHours()){
-            sms_string = `Salon Art and Dogs bonjour, je vous contacte suite à votre demande de rendez - vous effectuée le ${props.appointment.formDate}. Je peux vous proposer le: ${selectedDate.getDate()}/${selectedDate.getMonth()} à ${selectedDate.getHours()}h${selectedDate.getMinutes()}. Merci de me confirmer ou non votre présence. Une bonne journée.`
+            sms_string = `Salon Art and Dogs bonjour, je vous contacte suite à votre demande de rendez - vous effectuée le ${props.appointment.formDate}. Je peux vous proposer le: ${selectedDate.getDate()}/${selectedDate.getMonth() + 1} à ${selectedDate.getHours()}h${selectedDate.getMinutes()}. Merci de me confirmer ou non votre présence. Une bonne journée.`
             setAppointmentDateTime(currentDate)
         }
         if (dateTimePickerMode === 'date') {
@@ -230,7 +230,7 @@ const AppointmentItem = props => {
                             titleStyle={{ fontSize: 16, color: '#000' }}
                             buttonStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
                             title={dateTime
-                                ? `${dateTime.getDate().toString()}/${dateTime.getMonth().toString()} - ${dateTime.getHours().toString()}h${dateTime.getMinutes().toString()}`
+                                ? `${dateTime.getDate().toString()}/${String(dateTime.getMonth() + 1)} - ${dateTime.getHours().toString()}h${dateTime.getMinutes().toString()}`
                                 : 'Choisir une date'}
                         />
 
