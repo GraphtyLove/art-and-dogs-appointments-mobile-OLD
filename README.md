@@ -8,6 +8,7 @@ This is a mobile app that provide a dashboard to manage appointments took on the
 - Real-time receiving and updating appointments.
 - Defining a appointment proposal date and time with android's calendar and clock.
 - Appointment status management. *(`to-do` or `waiting` answer from the customer)*
+- Appointment status icon.
 - Button to send auto-formatted SMS that include the date and time proposal.
 - Button to call the customer.
 - Button to delete an appointment.
@@ -27,20 +28,20 @@ React native app created with `expo`.
 ## Screenshots
 
 ### To-do view
-[app to-do view screenshot](assets/images/mobile-app-screen-todo.jpg)
-[app to-do view screenshot](assets/images/mobile-app-screen-todo-2.jpg)
+<img src="assets/images/mobile-app-screen-todo.jpg" alt="to-do view screenshot" height="600" />
+<img src="assets/images/mobile-app-screen-todo-2.jpg" alt="to-do view screenshot" height="600" />
 
 ### Waiting view
-[app to-do view screenshot](assets/images/mobile-app-screen-waiting.jpg)
+<img src="assets/images/mobile-app-screen-waiting.jpg" alt="waiting view screenshot" height="600" />
 
 ### Calendar date picker
-[app to-do view screenshot](assets/images/mobile-app-screen-calendar.jpg)
+<img src="assets/images/mobile-app-screen-calendar.jpg" alt="calendar view screenshot" height="600" />
 
 ### Clock time picker
-[app to-do view screenshot](assets/images/mobile-app-screen-clock.jpg)
+<img src="assets/images/mobile-app-screen-clock.jpg" alt="clock view screenshot" height="600" />
 
 ### SMS auto-formatted tool
-[app to-do view screenshot](assets/images/mobile-app-screen-sms.jpg)
+<img src="assets/images/mobile-app-screen-sms.jpg" alt="SMS view screenshot" height="600" />
 
 
 ## Who?
