@@ -5,16 +5,16 @@ This is a mobile app that provide a dashboard to manage appointments took on the
 
 
 ## Features
-- Real-time receiving and updating appointments.
-- Defining a appointment proposal date and time with android's calendar and clock.
-- Appointment status management. *(`to-do` or `waiting` answer from the customer)*
-- Appointment status icon.
-- Button to send auto-formatted SMS that include the date and time proposal.
-- Button to call the customer.
-- Button to delete an appointment.
-- Button to switch the appointment's status.
-- Switcher to filter appointments based on their status.
-- Push notification when new appointments.
+- Real-time receiving and updating appointments. ✅
+- Defining a appointment proposal date and time with android's calendar and clock. ✅
+- Appointment status management. *(`to-do` or `waiting` answer from the customer)* ✅
+- Appointment status icon. ✅
+- Button to send auto-formatted SMS that include the date and time proposal. ✅
+- Button to call the customer. ✅
+- Button to delete an appointment. ✅
+- Button to switch the appointment's status. ✅
+- Switcher to filter appointments based on their status. ✅
+- Push notification when new appointments. ❌ **to-do**
 
 ## Why
 To help the groomer to manage appointments easily.
