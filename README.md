@@ -14,7 +14,7 @@ This is a mobile app that provide a dashboard to manage appointments took on the
 - Button to delete an appointment. ✅
 - Button to switch the appointment's status. ✅
 - Switcher to filter appointments based on their status. ✅
-- Push notification when new appointments. ❌ **to-do**
+- Push notification when new appointments. ❌ *to-do*
 
 ## Why
 To help the groomer to manage appointments easily.
