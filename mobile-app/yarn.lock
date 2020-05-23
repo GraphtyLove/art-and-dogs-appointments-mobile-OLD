@@ -1374,6 +1374,13 @@
   dependencies:
     invariant "^2.2.4"
 
+"@react-native-community/push-notification-ios@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@react-native-community/push-notification-ios/-/push-notification-ios-1.2.0.tgz#3353598450a39c42d079603aad2d1c0f9c2c1729"
+  integrity sha512-B5qPb9P/6vvxGGQDePlK/q6NxoZPWSVFtKCQ9jlboP7gNZmf3AAyBhTzrb++s2NSXXogjkGi6vt9df1ipZiawQ==
+  dependencies:
+    invariant "^2.2.4"
+
 "@react-native-firebase/app-types@6.7.1":
   version "6.7.1"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/app-types/-/app-types-6.7.1.tgz#93497885e6c112203db310636616647c16478da9"
@@ -5866,6 +5873,13 @@ react-native-gesture-handler@~1.6.0:
     hoist-non-react-statics "^2.3.1"
     invariant "^2.2.4"
     prop-types "^15.7.2"
+
+react-native-push-notification@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-3.5.1.tgz#438dd6b526903e01659f34b1ba5d9f293ac663a1"
+  integrity sha512-F2h4qlEnKzjtqFhtT3To3rUAFuzmfHrFum55yttb40dE0+gMh1Piu0EyebIseKsin6Ia3830tLK/e1Q1kQMMjA==
+  dependencies:
+    "@react-native-community/push-notification-ios" "^1.2.0"
 
 react-native-ratings@^6.5.0:
   version "6.5.0"

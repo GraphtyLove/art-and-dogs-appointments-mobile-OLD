@@ -1,3 +1,5 @@
+import React from 'react'
+import { StyleSheet, View, Text, Button } from 'react-native'
 import PushNotification from 'react-native-push-notification'
 
 PushNotification.configure({
