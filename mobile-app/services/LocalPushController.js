@@ -1,5 +1,3 @@
-import React from 'react'
-import { StyleSheet, View, Text, Button } from 'react-native'
 import PushNotification from 'react-native-push-notification'
 
 PushNotification.configure({
@@ -10,18 +8,17 @@ PushNotification.configure({
     requestPermissions: true
 })
 
-export const LocalNotification = () => {
+export const localNotification = (title, message, bigText = '', subText='', vibration=300, playSound=true, soundName='default', ) => {
     PushNotification.localNotification({
         autoCancel: true,
-        bigText:
-            'This is local notification demo in React Native app. Only shown, when expanded.',
-        subText: 'Local Notification Demo',
-        title: 'Local Notification Title',
-        message: 'Expand me to see more',
+        bigText: bigText,
+        subText: subText,
+        title: title,
+        message: message,
         vibrate: true,
-        vibration: 300,
-        playSound: true,
-        soundName: 'default',
-        actions: '["Yes", "No"]'
+        vibration: vibration,
+        playSound: playSound,
+        soundName: soundName,
+        actions: '["voir le rendez-vous"]'
     })
 }

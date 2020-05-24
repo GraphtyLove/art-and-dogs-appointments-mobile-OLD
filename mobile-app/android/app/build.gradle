@@ -194,6 +194,7 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'com.google.firebase:firebase-auth:19.3.0'
     implementation 'com.google.firebase:firebase-firestore:21.4.1'
+    
 
     addUnimodulesDependencies()
 

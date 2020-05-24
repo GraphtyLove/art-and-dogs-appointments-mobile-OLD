@@ -1395,10 +1395,10 @@
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
-"@react-native-firebase/firestore@^7.0.1":
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-7.0.1.tgz#29b7caca7e7ce823895b93377bcde5f1f9d71186"
-  integrity sha512-yYPAOXlAotFfhLTsa3GLlJDxgJhqF1jxm5cLPrNWqWCbcN2Vo6XevQhpHzST2pwuwqeEEGoq80W28XZRDe3k9g==
+"@react-native-firebase/firestore@^7.1.0":
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-7.1.0.tgz#e15e452f68e449dc0f52d1156bbf7ce3000de8b0"
+  integrity sha512-Ur5OPbPe+fg/U1Xd+kGmtV4kSprvcGiFBuetMfBe6iPvlXjE1eY7T3+l7P655kpn+1ps5nlnVPEihXaMoVkeOg==
 
 "@types/babel__core@^7.1.0":
   version "7.1.7"

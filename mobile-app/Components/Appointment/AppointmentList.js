@@ -49,7 +49,6 @@ const AppointmentList = props => {
             setLoading(false)
         })
         
-
         return () => subscriber
     }, [])
 
