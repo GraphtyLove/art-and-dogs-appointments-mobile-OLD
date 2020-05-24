@@ -67,3 +67,4 @@ google-services.json
 # BUILD
 Android/app/build/
 *.hprof
+*.apk

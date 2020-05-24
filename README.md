@@ -45,15 +45,15 @@ React native app created with `expo`.
 
 
 ## Who?
-- Maxim Berge - programming
+- Maxim Berge - Code
 - Cassandra Caestecker - design
 
 
 ## Deployment
 To create an APK installer for android, follow these steps:
 - At your project's root type: `$ expo publish`
-- Then go in the `android/` folder and type: `$ /gradlew assembleRelease`
-You will  find the APK in the `android/app/build/outputs/apk/release/app-release.apk`
+- Then go in the `android/` folder and type: `$ ./gradlew assembleRelease`
+You will find the APK in `android/app/build/outputs/apk/release/app-release.apk`
 
 
 ## Remarques:
