@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import { StyleSheet, ScrollView, Button } from 'react-native';
+import React from 'react';
+import { StyleSheet, ScrollView } from 'react-native';
 import Dashboard from './Components/Dashboard/Dashboard.js'
 
-
-// Notifs
-import { LocalNotification } from './services/LocalPushController'
+// Services
 import RemotePushController from './services/RemotePushController'
 
 const styles = StyleSheet.create({

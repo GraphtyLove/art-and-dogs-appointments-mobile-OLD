@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
 import firestore from '@react-native-firebase/firestore'
+
 // Components:
 import AppointmentItem from './AppointmentItem.js'
-// import { LocalNotification } from '../../services/LocalPushController'
 
 // Style:
 const style = StyleSheet.create({
@@ -48,7 +48,7 @@ const AppointmentList = props => {
             setAppointmentList(appointments)
             setLoading(false)
         })
-        
+
         return () => subscriber
     }, [])
 
