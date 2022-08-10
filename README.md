@@ -19,7 +19,7 @@ This is a mobile app that provide a dashboard to manage appointments took on the
 ## Why
 To help the groomer to manage appointments easily.
 
-## Technos
+## Tech stack
 It use `React Native` for the mobile ap and Google `Firebase` (firestore) as a database/server.
 
 React native app created with `expo`.
